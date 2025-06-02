@@ -11,20 +11,20 @@ class MdWsSeiRest extends SeiIntegracao
     const NOME_MODULO = "MdWsSeiRest";
     const VERSAO_MODULO = "2.2.1";
 
-    // A partir da versão 2.0.0, o módulo de integração do SEI com o PEN não será mais compatível com o SEI 3.0.X
+    // A partir da versï¿½o 2.0.0, o mï¿½dulo de integraï¿½ï¿½o do SEI com o PEN nï¿½o serï¿½ mais compatï¿½vel com o SEI 3.0.X
     const COMPATIBILIDADE_MODULO_SEI = array(
-      // Versões SEI
+      // Versï¿½es SEI
       '3.1.0', '3.1.1', '3.1.2', '3.1.3', '3.1.4', '3.1.5', '3.1.6', '3.1.7',
       '4.0.0', '4.0.1' , '4.0.2' , '4.0.3', '4.0.4', '4.0.5', '4.0.6', '4.0.7',
       '4.0.8', '4.0.9', '4.0.10', '4.0.11', '4.0.12', '4.1.1', '4.1.2', '4.1.3', '4.1.4', '4.1.5',
-      // Versões SUPER
+      // Versï¿½es SUPER
       '4.0.3.1', '4.0.3.2', '4.0.3.3', '4.0.3.4', '4.0.3.5', '4.0.4.6', '4.0.5.7',
       '4.0.6.8', '4.0.7.9', '4.0.8.10', '4.0.9.11', '4.0.9.12', '4.0.9.13', '4.0.9.14', '4.0.12.15'
   );
 
   public function getNome()
     {
-      return 'Módulo de serviços REST';
+      return 'Mï¿½dulo de serviï¿½os REST';
   }
 
   public function getVersao()
@@ -34,7 +34,7 @@ class MdWsSeiRest extends SeiIntegracao
 
   public function getInstituicao()
     {
-      return 'Ministério da Gestão e da Inovação em Serviços Públicos - MGI';
+      return 'Ministï¿½rio da Gestï¿½o e da Inovaï¿½ï¿½o em Serviï¿½os Pï¿½blicos - MGI';
   }
 
 
@@ -81,11 +81,11 @@ class MdWsSeiRest extends SeiIntegracao
   }
 
     /**
-     * Formata o retorno da mensagem para o padrão do controlador de serviços REST
+     * Formata o retorno da mensagem para o padrï¿½o do controlador de serviï¿½os REST
      * @param null $mensagem
      * @param null $result
      * @param null $total
-     * @param bool $jsonEncode - Se alterado para true retornará como json_encode
+     * @param bool $jsonEncode - Se alterado para true retornarï¿½ como json_encode
      * @return array
      */
   public static function formataRetornoSucessoREST($mensagem = null, $result = null, $total = null, $jsonEncode = false)
@@ -107,7 +107,7 @@ class MdWsSeiRest extends SeiIntegracao
   }
 
     /**
-     * Formata o retorno da mensagem para o padrão do controlador de serviços REST
+     * Formata o retorno da mensagem para o padrï¿½o do controlador de serviï¿½os REST
      * @param Exception $e
      * @return array
      */
@@ -143,7 +143,7 @@ class MdWsSeiRest extends SeiIntegracao
   }
 
     /**
-     * Método que verifica se o módulo esta ativo nas configurações do SEI
+     * Mï¿½todo que verifica se o mï¿½dulo esta ativo nas configuraï¿½ï¿½es do SEI
      */
   public static function moduloAtivo()
     {
@@ -159,7 +159,7 @@ class MdWsSeiRest extends SeiIntegracao
   }
 
     /**
-     * Retorna se é compativel com a versão atual do SEI instalado
+     * Retorna se ï¿½ compativel com a versï¿½o atual do SEI instalado
      * @param $strVersaoSEI
      * @return bool
      */
@@ -173,11 +173,13 @@ class MdWsSeiRest extends SeiIntegracao
 
   public function inicializar($strVersaoSEI)
     {
-      define('DIR_SEI_WEB', realpath(DIR_SEI_CONFIG.'/../web'));
+      if (!defined('DIR_SEI_WEB')) {
+        define('DIR_SEI_WEB', realpath(DIR_SEI_CONFIG.'/../web'));
+      }
       $this->carregarArquivoConfiguracaoModulo(DIR_SEI_CONFIG);
 
     if (!$this->verificaCompatibilidade($strVersaoSEI)) {
-        die('Módulo "' . $this->getNome() . '" (' . $this->getVersao() . ') não e compatível com esta versão do SEI (' . $strVersaoSEI . ').');
+        die('Mï¿½dulo "' . $this->getNome() . '" (' . $this->getVersao() . ') nï¿½o e compatï¿½vel com esta versï¿½o do SEI (' . $strVersaoSEI . ').');
     }
   }
 
@@ -326,7 +328,7 @@ class MdWsSeiRest extends SeiIntegracao
   }
 
     /**
-     * Função que monta o html do QRCode para o menu lateral do SEI
+     * Funï¿½ï¿½o que monta o html do QRCode para o menu lateral do SEI
      * @param $nomeArquivo
      * @return string
      */
@@ -350,13 +352,13 @@ class MdWsSeiRest extends SeiIntegracao
 
       $infraException = new InfraException();
     if (!file_exists($caminhoFisicoQrCode)) {
-        $infraException->lancarValidacao('Arquivo do QRCode não encontrado.');
+        $infraException->lancarValidacao('Arquivo do QRCode nï¿½o encontrado.');
     }
     if (filesize($caminhoFisicoQrCode) == 0) {
         $infraException->lancarValidacao('Arquivo do QRCode vazio.');
     }
     if (($binQrCode = file_get_contents($caminhoFisicoQrCode)) === false) {
-        $infraException->lancarValidacao('Não foi possível ler o arquivo do QRCode.');
+        $infraException->lancarValidacao('Nï¿½o foi possï¿½vel ler o arquivo do QRCode.');
     }
       $htmlQrCode .= '<script>document.querySelector("div.infraSidebarMenu").style.overflowY = "visible";</script>';
       $htmlQrCode .= '<div style="font-size: 12px; text-align: center; background-color: #f5f6f7">';
@@ -368,7 +370,7 @@ class MdWsSeiRest extends SeiIntegracao
       // $htmlQrCode .= '</p>';
       $htmlQrCode .= '<p style="text-align: left; margin: 15px 5px 5px 5px;">';
       $htmlQrCode .= '<strong style="font-weight: bolder">';
-      $htmlQrCode .= 'Abra o aplicativo do SEI! e faça a leitura do código abaixo para sincronizá-lo com sua conta.';
+      $htmlQrCode .= 'Abra o aplicativo do SEI! e faï¿½a a leitura do cï¿½digo abaixo para sincronizï¿½-lo com sua conta.';
       $htmlQrCode .= '</strong>';
       $htmlQrCode .= '</p>';
       $htmlQrCode .= '<img style="margin: 20px auto 6px;" align="center" src="data:image/png;base64, '
@@ -380,7 +382,7 @@ class MdWsSeiRest extends SeiIntegracao
 
 
     /**
-     * Gera Identificador único do usuário logado
+     * Gera Identificador ï¿½nico do usuï¿½rio logado
      * @return String
      */
   public static function geraIdentificadorUsuario($siglaUsuario, $siglaOrgao)
@@ -396,7 +398,7 @@ class MdWsSeiRest extends SeiIntegracao
         $strArquivoConfiguracao = $strDiretorioSeiWeb . '/mod-wssei/ConfiguracaoMdWSSEI.php';
         include_once $strArquivoConfiguracao;       
     } catch(Exception $e){
-        LogSEI::getInstance()->gravar("Arquivo de configuração do módulo WSSEI não pode ser localizado em " . $strArquivoConfiguracao);
+        LogSEI::getInstance()->gravar("Arquivo de configuraï¿½ï¿½o do mï¿½dulo WSSEI nï¿½o pode ser localizado em " . $strArquivoConfiguracao);
     }
   }   
 }
